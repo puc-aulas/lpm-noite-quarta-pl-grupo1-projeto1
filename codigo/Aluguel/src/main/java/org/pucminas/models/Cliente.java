@@ -27,17 +27,6 @@ public class Cliente {
     public void setDocumento(String documento) {
         this.documento = documento;
     }
-
-    public List<Aluguel> getAlugueis(String documento, List<Aluguel> alugueis) {
-        List<Aluguel> alugueisDoCliente = new ArrayList<>();
-        for (Aluguel aluguel : alugueis) {
-            if (aluguel.getCliente().getDocumento().equals(documento)) {
-                alugueisDoCliente.add(aluguel);
-            }
-        }
-        return alugueisDoCliente;
-    }
-
     @Override
     public String toString() {
         return "Cliente (Nome: " + nome + ", Documento: " + documento + ")";

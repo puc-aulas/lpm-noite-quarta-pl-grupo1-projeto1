@@ -9,14 +9,13 @@ public class Aluguel {
     private Equipamento equipamento;
     private String dataInicio;
     private String dataFim;
-    private double valorDiario;
-
-    public Aluguel(Cliente cliente, Equipamento equipamento, String dataInicio, String dataFim, double valorDiario) {
+    private double valorTotalAluguel;
+    public Aluguel(Cliente cliente, Equipamento equipamento, String dataInicio, String dataFim) {
         this.cliente = cliente;
         this.equipamento = equipamento;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
-        this.valorDiario = valorDiario;
+        calcularValorTotalAluguel();
     }
 
     public Cliente getCliente() {
@@ -50,31 +49,35 @@ public class Aluguel {
     public void setDataFim(String dataFim) {
         this.dataFim = dataFim;
     }
-
-    public double getValorDiario() {
-        return valorDiario;
-    }
-
-    public void setValorDiario(double valorDiario) {
-        this.valorDiario = valorDiario;
+    public void calcularValorTotalAluguel(){
+        long numDias = calcularDiferencaDias(dataInicio, dataFim);
+        valorTotalAluguel = numDias * getEquipamento().getValorDiario();
     }
 
     public double getValorTotalAluguel() {
-        long numDias = calcularDiferencaDias(dataInicio, dataFim);
-        return numDias * valorDiario;
+        return valorTotalAluguel;
+    }
+
+    public void setValorTotalAluguel(double valorTotalAluguel) {
+        this.valorTotalAluguel = valorTotalAluguel;
+    }
+    private long getDiasDeAluguel(){
+        return calcularDiferencaDias(dataInicio,dataFim);
     }
 
     private long calcularDiferencaDias(String dataInicioStr, String dataFimStr) {
         LocalDate dataInicio = LocalDate.parse(dataInicioStr);
         LocalDate dataFim = LocalDate.parse(dataFimStr);
-
-        long diferencaDias = ChronoUnit.DAYS.between(dataInicio, dataFim);
-        return diferencaDias;
+        return ChronoUnit.DAYS.between(dataInicio, dataFim);
     }
 
     @Override
     public String toString() {
-        return "Aluguel (Cliente: " + cliente.getNome() + ", Equipamento: " + equipamento.getDescricao() +
-                ", Data Início: " + dataInicio + ", Data Fim: " + dataFim + ", Valor Diário: " + valorDiario + ")";
+        return
+                "cliente:" + cliente.getDocumento() +
+                ", \nequipamento:" + equipamento.getDescricao() +
+                ", \ndataInicio:'" + dataInicio + '\'' +
+                ", \ndataFim:'" + dataFim + '\'' +
+                ", \nduração:"+ getDiasDeAluguel();
     }
 }

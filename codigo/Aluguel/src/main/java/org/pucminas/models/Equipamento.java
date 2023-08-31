@@ -4,7 +4,6 @@ public class Equipamento {
     private int codigo;
     private String descricao;
     private double valorDiario;
-    private Aluguel aluguel;
 
     public Equipamento() {
     }
@@ -32,12 +31,12 @@ public class Equipamento {
         this.descricao = descricao;
     }
 
-    public Aluguel getAluguel() {
-        return aluguel;
+    public double getValorDiario() {
+        return valorDiario;
     }
 
-    public void setAluguel(Aluguel aluguel) {
-        this.aluguel = aluguel;
+    public void setValorDiario(double valorDiario) {
+        this.valorDiario = valorDiario;
     }
 
     @Override
