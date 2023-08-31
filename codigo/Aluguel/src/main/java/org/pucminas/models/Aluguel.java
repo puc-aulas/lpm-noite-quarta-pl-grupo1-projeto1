@@ -1,5 +1,9 @@
 package org.pucminas.models;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
 public class Aluguel {
     private Cliente cliente;
     private Equipamento equipamento;
@@ -56,16 +60,16 @@ public class Aluguel {
     }
 
     public double getValorTotalAluguel() {
-        int numDias = calcularDiferencaDias(dataInicio, dataFim) + 1;
+        long numDias = calcularDiferencaDias(dataInicio, dataFim);
         return numDias * valorDiario;
     }
 
-    private int calcularDiferencaDias(String inicio, String fim) {
-        // Implementação simplificada para calcular a diferença em dias entre as datas.
-        // Você pode usar bibliotecas de manipulação de datas para uma abordagem mais precisa.
-        // Nesta implementação, considerei que as datas são strings no formato "dd/mm/yyyy".
-        // Convertendo para objetos Date, você pode usar a biblioteca java.util.Date ou java.time.LocalDate.
-        return 0;
+    private long calcularDiferencaDias(String dataInicioStr, String dataFimStr) {
+        LocalDate dataInicio = LocalDate.parse(dataInicioStr);
+        LocalDate dataFim = LocalDate.parse(dataFimStr);
+
+        long diferencaDias = ChronoUnit.DAYS.between(dataInicio, dataFim);
+        return diferencaDias;
     }
 
     @Override

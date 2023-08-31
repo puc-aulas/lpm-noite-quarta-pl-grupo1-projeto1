@@ -3,11 +3,17 @@ package org.pucminas.models;
 public class Equipamento {
     private int codigo;
     private String descricao;
+    private double valorDiario;
     private Aluguel aluguel;
 
-    public Equipamento(int codigo, String descricao) {
+    public Equipamento() {
+    }
+
+
+    public Equipamento(int codigo, String descricao, double valorDiario) {
         this.codigo = codigo;
         this.descricao = descricao;
+        this.valorDiario = valorDiario;
     }
 
     public int getCodigo() {
