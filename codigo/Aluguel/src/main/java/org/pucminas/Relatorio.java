@@ -5,16 +5,19 @@ import org.pucminas.models.Cliente;
 import org.pucminas.models.Equipamento;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Relatorio {
     private List<Aluguel> aluguelList = new ArrayList<>();
+
     public Relatorio() {
     }
 
     public Relatorio(List<Aluguel> aluguelList) {
         this.aluguelList = aluguelList;
     }
-    public Aluguel addAluguel(Aluguel aluguel){
+
+    public Aluguel addAluguel(Aluguel aluguel) {
         aluguelList.add(aluguel);
         return aluguel;
     }
@@ -36,7 +39,8 @@ public class Relatorio {
         }
         return alugueisDoCliente;
     }
-    private void imprimirInformaçõesClientes() {
+
+    public void imprimirInformacoesClientes() {
         Map<String, List<Aluguel>> alugueisPorCliente = new HashMap<>();
 
         for (Aluguel aluguel : aluguelList) {
@@ -47,35 +51,42 @@ public class Relatorio {
         }
 
         for (Map.Entry<String, List<Aluguel>> entry : alugueisPorCliente.entrySet()) {
-            String documentoCliente = entry.getKey();
             List<Aluguel> alugueisCliente = entry.getValue();
             double valorTotalCliente = 0.0;
 
             System.out.println("Aluguéis do cliente: " + alugueisCliente.get(0).getCliente().getNome());
             for (Aluguel aluguelCliente : alugueisCliente) {
-                System.out.println("\n"+aluguelCliente.toString() + " \nValor total do aluguel "+ aluguelCliente.getValorTotalAluguel());
+                System.out.println("\n" + aluguelCliente.toString() + " \nValor total do aluguel "
+                        + aluguelCliente.getValorTotalAluguel());
                 valorTotalCliente += aluguelCliente.getValorTotalAluguel();
             }
             System.out.println("\n\nValor total dos aluguéis registrado ao cliente: " + valorTotalCliente);
             System.out.println();
         }
     }
-    public static void main(String[] args) {
-        Relatorio relatorio = new Relatorio();
 
-        Cliente cliente1 = new Cliente("João", "123456789");
-        Cliente cliente2 = new Cliente("Maria", "987654321");
+    public void listeAlugueisDoMesEAno(int mes, int ano) {
+        List<Aluguel> alugueisDoMes = this.getAlugueisDoMes(mes, ano);
+        System.out.println("Abaixo estão os alugueis do mês " + mes + " de " + ano + ": ");
+        for (Aluguel aluguel : alugueisDoMes) {
+            System.out.println(aluguel.toString());
+        }
+    }
 
-        Equipamento equipamento1 = new Equipamento(1, "Escavadeira",1000.0);
-        Equipamento equipamento2 = new Equipamento(2, "Betoneira",200.2);
-        Equipamento equipamento3 = new Equipamento(2, "Caminhão",2006.0);
+    public List<Aluguel> getAlugueisDoMes(int mes, int ano) {
+        return aluguelList.stream()
+                .filter(aluguel -> isAluguelNoMes(aluguel, mes, ano))
+                .collect(Collectors.toList());
+    }
 
-        relatorio.addAluguel(new Aluguel(cliente1, equipamento1, "2023-08-01", "2023-08-10"));
-        relatorio.addAluguel(new Aluguel(cliente2, equipamento2, "2023-08-05", "2023-08-15"));
-        relatorio.addAluguel(new Aluguel(cliente2, equipamento3, "2023-08-09", "2023-08-15"));
-        relatorio.addAluguel(new Aluguel(cliente2, equipamento3, "2023-08-15", "2023-08-18"));
-        relatorio.addAluguel(new Aluguel(cliente1, equipamento2, "2023-08-09", "2023-08-15"));
+    private boolean isAluguelNoMes(Aluguel aluguel, int mes, int ano) {
+        String[] dataInicioParts = aluguel.getDataInicio().split("-");
+        String[] dataFimParts = aluguel.getDataFim().split("-");
+        int inicioMes = Integer.parseInt(dataInicioParts[1]);
+        int inicioAno = Integer.parseInt(dataInicioParts[0]);
+        int fimMes = Integer.parseInt(dataFimParts[1]);
+        int fimAno = Integer.parseInt(dataFimParts[0]);
 
-        relatorio.imprimirInformaçõesClientes();
+        return (inicioAno == ano && inicioMes == mes) || (fimAno == ano && fimMes == mes);
     }
 }

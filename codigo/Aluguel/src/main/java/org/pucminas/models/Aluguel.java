@@ -2,7 +2,6 @@ package org.pucminas.models;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 public class Aluguel {
     private Cliente cliente;
@@ -10,6 +9,7 @@ public class Aluguel {
     private String dataInicio;
     private String dataFim;
     private double valorTotalAluguel;
+
     public Aluguel(Cliente cliente, Equipamento equipamento, String dataInicio, String dataFim) {
         this.cliente = cliente;
         this.equipamento = equipamento;
@@ -49,9 +49,10 @@ public class Aluguel {
     public void setDataFim(String dataFim) {
         this.dataFim = dataFim;
     }
-    public void calcularValorTotalAluguel(){
+
+    public void calcularValorTotalAluguel() {
         long numDias = calcularDiferencaDias(dataInicio, dataFim);
-        valorTotalAluguel = numDias * getEquipamento().getValorDiario();
+        valorTotalAluguel = numDias * this.getValorAluguelPorDia();
     }
 
     public double getValorTotalAluguel() {
@@ -61,8 +62,9 @@ public class Aluguel {
     public void setValorTotalAluguel(double valorTotalAluguel) {
         this.valorTotalAluguel = valorTotalAluguel;
     }
-    private long getDiasDeAluguel(){
-        return calcularDiferencaDias(dataInicio,dataFim);
+
+    private long getDiasDeAluguel() {
+        return calcularDiferencaDias(dataInicio, dataFim);
     }
 
     private long calcularDiferencaDias(String dataInicioStr, String dataFimStr) {
@@ -71,13 +73,18 @@ public class Aluguel {
         return ChronoUnit.DAYS.between(dataInicio, dataFim);
     }
 
+    private double getValorAluguelPorDia() {
+        return this.getEquipamento().getValorDiario();
+    }
+
     @Override
     public String toString() {
-        return
-                "cliente:" + cliente.getDocumento() +
+        return "cliente :" + cliente.getNome() +
                 ", \nequipamento:" + equipamento.getDescricao() +
                 ", \ndataInicio:'" + dataInicio + '\'' +
                 ", \ndataFim:'" + dataFim + '\'' +
-                ", \nduração:"+ getDiasDeAluguel();
+                ", \nduração:" + getDiasDeAluguel() + " dias " +
+                ", \nvalor aluguel por dia: " + getValorAluguelPorDia()+
+                ", \nvalor total do aluguel: " + getValorTotalAluguel();
     }
 }
