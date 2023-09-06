@@ -21,7 +21,7 @@ public class Main {
             System.out.println("1 - Cadastrar Equipamento");
             System.out.println("2 - Cadastrar Cliente");
             System.out.println("3 - Cadastrar Aluguel");
-            System.out.println("4 - Imprimir informações dos clientes");
+            System.out.println("4 - Imprimir informações de um cliente");
             System.out.println("5 - Listar alugueis do mês e ano");
             System.out.println("6 - Sair");
             System.out.print("Opção: ");
@@ -39,7 +39,9 @@ public class Main {
                     cadastrarAluguel(scan);
                     break;
                 case 4:
-                    relatorio.imprimirInformacoesClientes();
+                    System.out.print("Digite o documento do cliente: ");
+                    String documento = scan.nextLine();
+                    relatorio.imprimirInformacoesClientes(documento);
                     break;
                 case 5:
                     System.out.print("Digite o mês e o ano (MM-YYYY): ");
@@ -77,7 +79,7 @@ public class Main {
         System.out.println("Digite os dados do Equipamento: ");
         System.out.print("Digite o código: ");
         int codigo = scan.nextInt();
-        scan.nextLine(); 
+        scan.nextLine();
         System.out.print("Digite o nome: ");
         String nome = scan.nextLine();
         System.out.print("Digite a descrição: ");
@@ -96,7 +98,7 @@ public class Main {
         String nomeCliente = scan.nextLine();
         System.out.print("Digite o código do equipamento: ");
         int codigoEquipamento = scan.nextInt();
-        scan.nextLine(); 
+        scan.nextLine();
         System.out.print("Digite a data de início (YYYY-MM-DD): ");
         String dataInicio = scan.nextLine();
         System.out.print("Digite a data de fim (YYYY-MM-DD): ");
