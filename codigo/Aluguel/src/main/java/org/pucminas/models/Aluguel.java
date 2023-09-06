@@ -80,11 +80,11 @@ public class Aluguel {
     @Override
     public String toString() {
         return "cliente :" + cliente.getNome() +
-                ", \nequipamento:" + equipamento.getDescricao() +
+                ", \nequipamento:" + equipamento.getNome() +
                 ", \ndataInicio:'" + dataInicio + '\'' +
                 ", \ndataFim:'" + dataFim + '\'' +
                 ", \nduração:" + getDiasDeAluguel() + " dias " +
-                ", \nvalor aluguel por dia: " + getValorAluguelPorDia()+
-                ", \nvalor total do aluguel: " + getValorTotalAluguel();
+                ", \nvalor aluguel por dia: " + getValorAluguelPorDia() +
+                ", \nvalor total do aluguel: " + getValorTotalAluguel() + "\n";
     }
 }

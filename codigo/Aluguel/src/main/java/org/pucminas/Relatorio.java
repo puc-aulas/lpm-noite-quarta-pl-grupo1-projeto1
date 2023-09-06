@@ -56,27 +56,38 @@ public class Relatorio {
 
             System.out.println("Aluguéis do cliente: " + alugueisCliente.get(0).getCliente().getNome());
             for (Aluguel aluguelCliente : alugueisCliente) {
-                System.out.println("\n" + aluguelCliente.toString() + " \nValor total do aluguel "
-                        + aluguelCliente.getValorTotalAluguel());
+                System.out.println("\n" + aluguelCliente.toString() + "\n");
                 valorTotalCliente += aluguelCliente.getValorTotalAluguel();
             }
-            System.out.println("\n\nValor total dos aluguéis registrado ao cliente: " + valorTotalCliente);
-            System.out.println();
+            System.out.println("Valor total dos aluguéis registrado ao cliente: " + valorTotalCliente);
+            System.out.println("\n");
         }
     }
 
     public void listeAlugueisDoMesEAno(int mes, int ano) {
         List<Aluguel> alugueisDoMes = this.getAlugueisDoMes(mes, ano);
-        System.out.println("Abaixo estão os alugueis do mês " + mes + " de " + ano + ": ");
+        System.out.println("Abaixo estão os alugueis do mês " + mes + " de " + ano + ": \n");
         for (Aluguel aluguel : alugueisDoMes) {
             System.out.println(aluguel.toString());
         }
+        System.out.println(
+                "O faturamento total do mês " + mes + " de " + ano + " foi: " + this.getFaturamentoTotalMes(mes, ano)+ "\n");
     }
 
     public List<Aluguel> getAlugueisDoMes(int mes, int ano) {
         return aluguelList.stream()
                 .filter(aluguel -> isAluguelNoMes(aluguel, mes, ano))
                 .collect(Collectors.toList());
+    }
+
+    public double getFaturamentoTotalMes(int mes, int ano) {
+        List<Aluguel> alugueisDoMes = this.getAlugueisDoMes(mes, ano);
+        System.out.println("Abaixo esta o faturamento total do mês " + mes + " de " + ano + ": ");
+        double total = 0;
+        for (Aluguel aluguel : alugueisDoMes) {
+            total += aluguel.getValorTotalAluguel();
+        }
+        return total;
     }
 
     private boolean isAluguelNoMes(Aluguel aluguel, int mes, int ano) {

@@ -54,10 +54,10 @@ public class Main {
                     }
                     break;
                 case 6:
-                    System.out.println("Encerrando o programa.");
+                    System.out.println("Encerrando o programa. \n");
                     break;
                 default:
-                    System.out.println("Opção inválida. Tente novamente.");
+                    System.out.println("Opção inválida. Tente novamente. \n");
             }
         } while (opcao != 6);
     }
@@ -70,14 +70,14 @@ public class Main {
         String documento = scan.nextLine();
         Cliente cliente = new Cliente(nome, documento);
         clientesCadastrados.add(cliente);
-        System.out.println("Cliente cadastrado com sucesso.");
+        System.out.println("Cliente cadastrado com sucesso. \n");
     }
 
     private static void cadastrarEquipamento(Scanner scan) {
         System.out.println("Digite os dados do Equipamento: ");
         System.out.print("Digite o código: ");
         int codigo = scan.nextInt();
-        scan.nextLine(); // Consumir a quebra de linha após o número
+        scan.nextLine(); 
         System.out.print("Digite o nome: ");
         String nome = scan.nextLine();
         System.out.print("Digite a descrição: ");
@@ -86,7 +86,7 @@ public class Main {
         double valor = scan.nextDouble();
         Equipamento equipamento = new Equipamento(codigo, nome, descricao, valor);
         equipamentosCadastrados.add(equipamento);
-        System.out.println("Equipamento cadastrado com sucesso.");
+        System.out.println("Equipamento cadastrado com sucesso. \n");
     }
 
     private static void cadastrarAluguel(Scanner scan) {
@@ -96,7 +96,7 @@ public class Main {
         String nomeCliente = scan.nextLine();
         System.out.print("Digite o código do equipamento: ");
         int codigoEquipamento = scan.nextInt();
-        scan.nextLine(); // Consumir a quebra de linha após o número
+        scan.nextLine(); 
         System.out.print("Digite a data de início (YYYY-MM-DD): ");
         String dataInicio = scan.nextLine();
         System.out.print("Digite a data de fim (YYYY-MM-DD): ");
@@ -120,9 +120,9 @@ public class Main {
 
         if (cliente != null && equipamento != null) {
             relatorio.addAluguel(new Aluguel(cliente, equipamento, dataInicio, dataFim));
-            System.out.println("Aluguel cadastrado com sucesso.");
+            System.out.println("Aluguel cadastrado com sucesso.\n");
         } else {
-            System.out.println("Cliente ou equipamento não encontrado. Verifique os dados e tente novamente.");
+            System.out.println("Cliente ou equipamento não encontrado. Verifique os dados e tente novamente. \n");
         }
     }
 }
