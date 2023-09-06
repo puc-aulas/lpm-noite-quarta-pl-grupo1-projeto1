@@ -40,26 +40,20 @@ public class Relatorio {
         return alugueisDoCliente;
     }
 
-    public void imprimirInformacoesClientes() {
-        Map<String, List<Aluguel>> alugueisPorCliente = new HashMap<>();
+    public void imprimirInformacoesClientes(String documentoCliente) {
 
-        for (Aluguel aluguel : aluguelList) {
-            String documentoCliente = aluguel.getCliente().getDocumento();
-            if (!alugueisPorCliente.containsKey(documentoCliente)) {
-                alugueisPorCliente.put(documentoCliente, getAlugueis(documentoCliente));
-            }
-        }
+        List<Aluguel> alugueisCliente = getAlugueis(documentoCliente);
+        double valorTotalCliente = 0.0;
 
-        for (Map.Entry<String, List<Aluguel>> entry : alugueisPorCliente.entrySet()) {
-            List<Aluguel> alugueisCliente = entry.getValue();
-            double valorTotalCliente = 0.0;
-
+        if (alugueisCliente.isEmpty()) {
+            System.out.println("Cliente não encontrado ou sem aluguéis registrados.");
+        } else {
             System.out.println("Aluguéis do cliente: " + alugueisCliente.get(0).getCliente().getNome());
             for (Aluguel aluguelCliente : alugueisCliente) {
                 System.out.println("\n" + aluguelCliente.toString() + "\n");
                 valorTotalCliente += aluguelCliente.getValorTotalAluguel();
             }
-            System.out.println("Valor total dos aluguéis registrado ao cliente: " + valorTotalCliente);
+            System.out.println("Valor total dos aluguéis registrados ao cliente: " + valorTotalCliente);
             System.out.println("\n");
         }
     }
@@ -71,7 +65,8 @@ public class Relatorio {
             System.out.println(aluguel.toString());
         }
         System.out.println(
-                "O faturamento total do mês " + mes + " de " + ano + " foi: " + this.getFaturamentoTotalMes(mes, ano)+ "\n");
+                "O faturamento total do mês " + mes + " de " + ano + " foi: " + this.getFaturamentoTotalMes(mes, ano)
+                        + "\n");
     }
 
     public List<Aluguel> getAlugueisDoMes(int mes, int ano) {
