@@ -50,7 +50,7 @@ public class Main {
                     if (partes.length == 2) {
                         int mes = Integer.parseInt(partes[0]);
                         int ano = Integer.parseInt(partes[1]);
-                        relatorio.listeAlugueisDoMesEAno(mes, ano);
+                        relatorio.listeAlugueisEFaturamentoTotalDoMesEAno(mes, ano);
                     } else {
                         System.out.println("Formato de data inválido.");
                     }
