@@ -58,7 +58,7 @@ public class Relatorio {
         }
     }
 
-    public void listeAlugueisDoMesEAno(int mes, int ano) {
+    public void listeAlugueisEFaturamentoTotalDoMesEAno(int mes, int ano) {
         List<Aluguel> alugueisDoMes = this.getAlugueisDoMes(mes, ano);
         System.out.println("Abaixo estão os alugueis do mês " + mes + " de " + ano + ": \n");
         for (Aluguel aluguel : alugueisDoMes) {
