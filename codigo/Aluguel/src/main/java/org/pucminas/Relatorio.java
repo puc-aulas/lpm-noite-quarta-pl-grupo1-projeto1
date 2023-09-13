@@ -1,8 +1,7 @@
 package org.pucminas;
 
 import org.pucminas.models.Aluguel;
-import org.pucminas.models.Cliente;
-import org.pucminas.models.Equipamento;
+
 
 import java.util.*;
 import java.util.stream.Collectors;
