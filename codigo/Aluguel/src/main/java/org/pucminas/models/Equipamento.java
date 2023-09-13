@@ -5,16 +5,20 @@ public class Equipamento {
     private String descricao;
     private String nome;
     private double valorDiario;
+    private int quantidadeTotal;
+    private int quantidadeDisponivel;
+    private boolean disponivel;
 
     public Equipamento() {
     }
 
 
-    public Equipamento(int codigo, String nome, String descricao, double valorDiario) {
+    public Equipamento(int codigo, String nome, String descricao, double valor, int quantidadeTotal) {
         this.codigo = codigo;
         this.nome = nome;
         this.descricao = descricao;
-        this.valorDiario = valorDiario;
+        this.quantidadeTotal = quantidadeTotal;
+        this.quantidadeDisponivel = quantidadeTotal;
     }
 
     public int getCodigo() {
@@ -47,6 +51,30 @@ public class Equipamento {
 
     public void setValorDiario(double valorDiario) {
         this.valorDiario = valorDiario;
+    }
+
+    public int getQuantidadeTotal() {
+        return quantidadeTotal;
+    }
+
+    public int getQuantidadeDisponivel() {
+        return quantidadeDisponivel;
+    }
+
+    public void alugar(int quantidade) {
+        if (quantidade <= quantidadeDisponivel) {
+            quantidadeDisponivel -= quantidade;
+        } else {
+            System.out.println("Não há equipamentos suficientes disponíveis.");
+        }
+    }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
     }
 
     @Override
