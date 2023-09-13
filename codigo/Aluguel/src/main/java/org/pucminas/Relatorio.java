@@ -82,6 +82,7 @@ public class Relatorio {
         for (Aluguel aluguel : alugueisDoMes) {
             total += aluguel.getValorTotalAluguel();
         }
+        System.out.println(total);
         return total;
     }
 

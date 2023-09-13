@@ -13,12 +13,13 @@ public class Equipamento {
     }
 
 
-    public Equipamento(int codigo, String nome, String descricao, double valor, int quantidadeTotal) {
+    public Equipamento(int codigo, String nome, String descricao, double valorDiario, int quantidadeTotal) {
         this.codigo = codigo;
         this.nome = nome;
         this.descricao = descricao;
         this.quantidadeTotal = quantidadeTotal;
         this.quantidadeDisponivel = quantidadeTotal;
+        this.valorDiario = valorDiario;
     }
 
     public int getCodigo() {
