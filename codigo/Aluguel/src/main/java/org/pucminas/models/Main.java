@@ -86,7 +86,9 @@ public class Main {
         String descricao = scan.nextLine();
         System.out.print("Digite o valor por dia: ");
         double valor = scan.nextDouble();
-        Equipamento equipamento = new Equipamento(codigo, nome, descricao, valor);
+        System.out.print("Digite a quantidade disponivel do equipamento: ");
+        int quantidade = scan.nextInt();
+        Equipamento equipamento = new Equipamento(codigo, nome, descricao, valor, quantidade);
         equipamentosCadastrados.add(equipamento);
         System.out.println("Equipamento cadastrado com sucesso. \n");
     }
@@ -103,7 +105,7 @@ public class Main {
         String dataInicio = scan.nextLine();
         System.out.print("Digite a data de fim (YYYY-MM-DD): ");
         String dataFim = scan.nextLine();
-
+    
         Cliente cliente = null;
         for (Cliente c : clientesCadastrados) {
             if (c.getDocumento().equals(documentoCliente) && c.getNome().equals(nomeCliente)) {
@@ -111,7 +113,7 @@ public class Main {
                 break;
             }
         }
-
+    
         Equipamento equipamento = null;
         for (Equipamento e : equipamentosCadastrados) {
             if (e.getCodigo() == codigoEquipamento) {
@@ -119,12 +121,19 @@ public class Main {
                 break;
             }
         }
-
+    
         if (cliente != null && equipamento != null) {
-            relatorio.addAluguel(new Aluguel(cliente, equipamento, dataInicio, dataFim));
-            System.out.println("Aluguel cadastrado com sucesso.\n");
+            int quantidadeAlugada = 1; // Você pode ajustar isso conforme necessário
+            if (quantidadeAlugada <= equipamento.getQuantidadeDisponivel()) {
+                equipamento.alugar(quantidadeAlugada); // Atualizar a quantidade disponível
+                relatorio.addAluguel(new Aluguel(cliente, equipamento, dataInicio, dataFim));
+                System.out.println("Aluguel cadastrado com sucesso.\n");
+            } else {
+                System.out.println("Não há equipamentos suficientes disponíveis para aluguel.\n");
+            }
         } else {
             System.out.println("Cliente ou equipamento não encontrado. Verifique os dados e tente novamente. \n");
         }
     }
+    
 }
