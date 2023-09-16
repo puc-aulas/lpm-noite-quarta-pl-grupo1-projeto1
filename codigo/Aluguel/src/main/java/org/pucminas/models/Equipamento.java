@@ -1,5 +1,7 @@
 package org.pucminas.models;
 
+import java.util.List;
+
 public class Equipamento {
     private int codigo;
     private String descricao;
@@ -13,12 +15,13 @@ public class Equipamento {
     }
 
 
-    public Equipamento(int codigo, String nome, String descricao, double valor, int quantidadeTotal) {
+    public Equipamento(int codigo, String nome, String descricao, double valorDiario, int quantidadeTotal) {
         this.codigo = codigo;
         this.nome = nome;
         this.descricao = descricao;
         this.quantidadeTotal = quantidadeTotal;
         this.quantidadeDisponivel = quantidadeTotal;
+        this.valorDiario = valorDiario;
     }
 
     public int getCodigo() {
@@ -61,12 +64,29 @@ public class Equipamento {
         return quantidadeDisponivel;
     }
 
+    public boolean verificaQuantidadeDisponivel(int quantidade){
+        if(quantidadeDisponivel>= quantidade)
+            return true;
+        return false;
+    }
+
     public void alugar(int quantidade) {
         if (quantidade <= quantidadeDisponivel) {
             quantidadeDisponivel -= quantidade;
         } else {
             System.out.println("Não há equipamentos suficientes disponíveis.");
         }
+    }
+
+    public Equipamento verificaEquipamento(List<Equipamento> equipamentosCadastrados, int codigoEquipamento ){
+        Equipamento equipamento = null;
+        for (Equipamento e : equipamentosCadastrados) {
+            if (e.getCodigo() == codigoEquipamento) {
+                equipamento = e;
+                return equipamento;
+            }
+        }
+        return equipamento;
     }
 
     public boolean isDisponivel() {

@@ -11,9 +11,9 @@ public class Main {
     private static List<Cliente> clientesCadastrados = new ArrayList<>();
     private static List<Equipamento> equipamentosCadastrados = new ArrayList<>();
     private static Relatorio relatorio = new Relatorio();
+    private static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
 
         int opcao;
         do {
@@ -30,13 +30,13 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    cadastrarEquipamento(scan);
+                    cadastrarEquipamento();
                     break;
                 case 2:
-                    cadastrarCliente(scan);
+                    cadastrarCliente();
                     break;
                 case 3:
-                    cadastrarAluguel(scan);
+                    cadastrarAluguel();
                     break;
                 case 4:
                     System.out.print("Digite o documento do cliente: ");
@@ -64,7 +64,7 @@ public class Main {
         } while (opcao != 6);
     }
 
-    private static void cadastrarCliente(Scanner scan) {
+    private static void cadastrarCliente() {
         System.out.println("Digite os dados do cliente: ");
         System.out.print("Digite o nome: ");
         String nome = scan.nextLine();
@@ -74,8 +74,8 @@ public class Main {
         clientesCadastrados.add(cliente);
         System.out.println("Cliente cadastrado com sucesso. \n");
     }
-
-    private static void cadastrarEquipamento(Scanner scan) {
+  
+    private static void cadastrarEquipamento() {
         System.out.println("Digite os dados do Equipamento: ");
         System.out.print("Digite o código: ");
         int codigo = scan.nextInt();
@@ -93,39 +93,28 @@ public class Main {
         System.out.println("Equipamento cadastrado com sucesso. \n");
     }
 
-    private static void cadastrarAluguel(Scanner scan) {
+    private static void cadastrarAluguel() {
         System.out.print("Digite o documento do cliente: ");
         String documentoCliente = scan.nextLine();
         System.out.print("Digite o nome do cliente: ");
         String nomeCliente = scan.nextLine();
         System.out.print("Digite o código do equipamento: ");
         int codigoEquipamento = scan.nextInt();
+        System.out.print("Digite a quantidade: ");
+        int quantidade = scan.nextInt();
         scan.nextLine();
         System.out.print("Digite a data de início (YYYY-MM-DD): ");
         String dataInicio = scan.nextLine();
         System.out.print("Digite a data de fim (YYYY-MM-DD): ");
         String dataFim = scan.nextLine();
-    
-        Cliente cliente = null;
-        for (Cliente c : clientesCadastrados) {
-            if (c.getDocumento().equals(documentoCliente) && c.getNome().equals(nomeCliente)) {
-                cliente = c;
-                break;
-            }
-        }
-    
-        Equipamento equipamento = null;
-        for (Equipamento e : equipamentosCadastrados) {
-            if (e.getCodigo() == codigoEquipamento) {
-                equipamento = e;
-                break;
-            }
-        }
+        //verifica existencia do cliente em questão
+        Cliente cliente = new Cliente().verificaCliente(clientesCadastrados, nomeCliente, documentoCliente);
+        //verifica existencia do produto em questão
+        Equipamento equipamento = new Equipamento().verificaEquipamento(equipamentosCadastrados, codigoEquipamento);
     
         if (cliente != null && equipamento != null) {
-            int quantidadeAlugada = 1; // Você pode ajustar isso conforme necessário
-            if (quantidadeAlugada <= equipamento.getQuantidadeDisponivel()) {
-                equipamento.alugar(quantidadeAlugada); // Atualizar a quantidade disponível
+            if(equipamento.verificaQuantidadeDisponivel(quantidade)){
+                equipamento.alugar(quantidade);
                 relatorio.addAluguel(new Aluguel(cliente, equipamento, dataInicio, dataFim));
                 System.out.println("Aluguel cadastrado com sucesso.\n");
             } else {
@@ -133,7 +122,7 @@ public class Main {
             }
         } else {
             System.out.println("Cliente ou equipamento não encontrado. Verifique os dados e tente novamente. \n");
-        }
-    }
+            }
+    }   
     
 }

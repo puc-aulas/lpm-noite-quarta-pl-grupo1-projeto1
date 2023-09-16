@@ -17,6 +17,9 @@ public class Aluguel {
         this.dataFim = dataFim;
         calcularValorTotalAluguel();
     }
+    public Aluguel(){
+
+    }
 
     public Cliente getCliente() {
         return cliente;
@@ -67,7 +70,7 @@ public class Aluguel {
         return calcularDiferencaDias(dataInicio, dataFim);
     }
 
-    private long calcularDiferencaDias(String dataInicioStr, String dataFimStr) {
+    public long calcularDiferencaDias(String dataInicioStr, String dataFimStr) {
         LocalDate dataInicio = LocalDate.parse(dataInicioStr);
         LocalDate dataFim = LocalDate.parse(dataFimStr);
         return ChronoUnit.DAYS.between(dataInicio, dataFim);
