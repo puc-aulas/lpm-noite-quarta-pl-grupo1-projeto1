@@ -11,10 +11,11 @@ public class Equipamento {
     private int quantidadeDisponivel;
     private boolean disponivel;
 
+    // Construtor vazio
     public Equipamento() {
     }
 
-
+    // Construtor com parâmetros
     public Equipamento(int codigo, String nome, String descricao, double valorDiario, int quantidadeTotal) {
         this.codigo = codigo;
         this.nome = nome;
@@ -23,7 +24,7 @@ public class Equipamento {
         this.quantidadeDisponivel = quantidadeTotal;
         this.valorDiario = valorDiario;
     }
-
+    // Métodos getters e setters para os atributos da classe
     public int getCodigo() {
         return codigo;
     }
@@ -63,13 +64,21 @@ public class Equipamento {
     public int getQuantidadeDisponivel() {
         return quantidadeDisponivel;
     }
+    /**
+     * Verifica se a quantidade de equipamentos disponíveis é suficiente para um aluguel.
+     * @param quantidade: A quantidade desejada para aluguel.
+     * @return true se a quantidade estiver disponível, false caso contrário.
+     */
 
     public boolean verificaQuantidadeDisponivel(int quantidade){
         if(quantidadeDisponivel>= quantidade)
             return true;
         return false;
     }
-
+    /**
+     * Realiza o aluguel de equipamentos, atualizando a quantidade disponível.
+     * @param quantidade A quantidade a ser alugada.
+     */
     public void alugar(int quantidade) {
         if (quantidade <= quantidadeDisponivel) {
             quantidadeDisponivel -= quantidade;
@@ -78,6 +87,12 @@ public class Equipamento {
         }
     }
 
+    /**
+     * Verifica se um equipamento está cadastrado na lista de equipamentos cadastrados.
+     * @param equipamentosCadastrados A lista de equipamentos cadastrados.
+     * @param codigoEquipamento       O código do equipamento a ser verificado.
+     * @return O equipamento encontrado na lista, ou null se não encontrado.
+     */
     public Equipamento verificaEquipamento(List<Equipamento> equipamentosCadastrados, int codigoEquipamento ){
         Equipamento equipamento = null;
         for (Equipamento e : equipamentosCadastrados) {
@@ -89,14 +104,26 @@ public class Equipamento {
         return equipamento;
     }
 
+    /**
+     * Verifica se o equipamento está disponível para aluguel.
+     * @return true se o equipamento estiver disponível, false caso contrário.
+     */
     public boolean isDisponivel() {
         return disponivel;
     }
 
+    /**
+     * Define a disponibilidade do equipamento para aluguel.
+     * @param disponivel true se o equipamento estiver disponível, false caso contrário.
+     */
     public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;
     }
 
+    /**
+     * Sobrescreve o método toString para exibir informações do equipamento.
+     * @return Uma representação em string do equipamento.
+     */
     @Override
     public String toString() {
         return "Equipamento (Código: " + codigo + ", Descrição: " + descricao + ")";

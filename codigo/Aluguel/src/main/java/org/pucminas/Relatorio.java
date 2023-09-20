@@ -1,10 +1,10 @@
 package org.pucminas;
 
-import org.pucminas.models.Aluguel;
-
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
+
+import org.pucminas.models.Aluguel;
 
 public class Relatorio {
     private List<Aluguel> aluguelList = new ArrayList<>();
@@ -16,19 +16,41 @@ public class Relatorio {
         this.aluguelList = aluguelList;
     }
 
+    /**
+     * Adiciona um aluguel à lista de aluguéis.
+     *
+     * @param aluguel O aluguel a ser adicionado.
+     * @return O aluguel adicionado.
+     */
     public Aluguel addAluguel(Aluguel aluguel) {
         aluguelList.add(aluguel);
         return aluguel;
     }
 
+    /**
+     * Obtém a lista de todos os aluguéis.
+     *
+     * @return A lista de aluguéis.
+     */
     public List<Aluguel> getAlugueis() {
         return aluguelList;
     }
 
+    /**
+     * Define a lista de aluguéis.
+     *
+     * @param aluguelList A lista de aluguéis a ser definida.
+     */
     public void setAluguelList(List<Aluguel> aluguelList) {
         this.aluguelList = aluguelList;
     }
 
+    /**
+     * Obtém os aluguéis de um cliente com base no documento do cliente.
+     *
+     * @param documento O documento do cliente.
+     * @return Uma lista de aluguéis do cliente.
+     */
     private List<Aluguel> getAlugueis(String documento) {
         List<Aluguel> alugueisDoCliente = new ArrayList<>();
         for (Aluguel aluguel : aluguelList) {
@@ -39,8 +61,12 @@ public class Relatorio {
         return alugueisDoCliente;
     }
 
+    /**
+     * Imprime as informações dos aluguéis de um cliente com base no documento do cliente.
+     *
+     * @param documentoCliente O documento do cliente.
+     */
     public void imprimirInformacoesClientes(String documentoCliente) {
-
         List<Aluguel> alugueisCliente = getAlugueis(documentoCliente);
         double valorTotalCliente = 0.0;
 
@@ -57,9 +83,15 @@ public class Relatorio {
         }
     }
 
+    /**
+     * Lista os aluguéis e o faturamento total de um mês e ano específicos.
+     *
+     * @param mes  O mês desejado.
+     * @param ano  O ano desejado.
+     */
     public void listeAlugueisEFaturamentoTotalDoMesEAno(int mes, int ano) {
         List<Aluguel> alugueisDoMes = this.getAlugueisDoMes(mes, ano);
-        System.out.println("Abaixo estão os alugueis do mês " + mes + " de " + ano + ": \n");
+        System.out.println("Abaixo estão os aluguéis do mês " + mes + " de " + ano + ": \n");
         for (Aluguel aluguel : alugueisDoMes) {
             System.out.println(aluguel.toString());
         }
@@ -68,15 +100,29 @@ public class Relatorio {
                         + "\n");
     }
 
+    /**
+     * Obtém uma lista de aluguéis para um mês e ano específicos.
+     *
+     * @param mes O mês desejado.
+     * @param ano O ano desejado.
+     * @return Uma lista de aluguéis do mês e ano especificados.
+     */
     public List<Aluguel> getAlugueisDoMes(int mes, int ano) {
         return aluguelList.stream()
                 .filter(aluguel -> isAluguelNoMes(aluguel, mes, ano))
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Calcula e obtém o faturamento total de um mês e ano específicos.
+     *
+     * @param mes O mês desejado.
+     * @param ano O ano desejado.
+     * @return O faturamento total do mês e ano especificados.
+     */
     public double getFaturamentoTotalMes(int mes, int ano) {
         List<Aluguel> alugueisDoMes = this.getAlugueisDoMes(mes, ano);
-        System.out.println("Abaixo esta o faturamento total do mês " + mes + " de " + ano + ": ");
+        System.out.println("Abaixo está o faturamento total do mês " + mes + " de " + ano + ": ");
         double total = 0;
         for (Aluguel aluguel : alugueisDoMes) {
             total += aluguel.getValorTotalAluguel();
@@ -85,6 +131,14 @@ public class Relatorio {
         return total;
     }
 
+    /**
+     * Verifica se um aluguel ocorre em um mês e ano específicos.
+     *
+     * @param aluguel O aluguel a ser verificado.
+     * @param mes     O mês desejado.
+     * @param ano     O ano desejado.
+     * @return true se o aluguel ocorrer no mês e ano especificados, caso contrário, false.
+     */
     private boolean isAluguelNoMes(Aluguel aluguel, int mes, int ano) {
         String[] dataInicioParts = aluguel.getDataInicio().split("-");
         String[] dataFimParts = aluguel.getDataFim().split("-");

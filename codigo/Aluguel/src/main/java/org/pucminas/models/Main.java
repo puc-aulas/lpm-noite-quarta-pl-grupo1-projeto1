@@ -64,6 +64,7 @@ public class Main {
         } while (opcao != 6);
     }
 
+    //Método para cadastrar um cliente.
     private static void cadastrarCliente() {
         System.out.println("Digite os dados do cliente: ");
         System.out.print("Digite o nome: ");
@@ -74,7 +75,8 @@ public class Main {
         clientesCadastrados.add(cliente);
         System.out.println("Cliente cadastrado com sucesso. \n");
     }
-  
+
+    //Método para cadastrar um equipamento.
     private static void cadastrarEquipamento() {
         System.out.println("Digite os dados do Equipamento: ");
         System.out.print("Digite o código: ");
@@ -92,7 +94,7 @@ public class Main {
         equipamentosCadastrados.add(equipamento);
         System.out.println("Equipamento cadastrado com sucesso. \n");
     }
-
+    //Método para cadastrar um aluguel.
     private static void cadastrarAluguel() {
         System.out.print("Digite o documento do cliente: ");
         String documentoCliente = scan.nextLine();
